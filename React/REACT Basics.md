@@ -1,4 +1,90 @@
 
+
+## Props
+
+In React, props flow from parent to child, not the other way around. The parent component is responsible for passing data to the child component. The child component then uses these props to render its content.
+
+ChildComponent.jsx
+
+``` jsx
+import React from 'react'; // The ChildComponent receives props from its parent component 
+const ChildComponent = (props) => { 
+return ( <div> <h1>{props.greeting}</h1> {/* The child uses the prop passed by the parent */} 
+<p>{props.message}</p> {/* The child uses another prop passed by the parent */} </div> ); 
+}; 
+
+export default ChildComponent;
+
+```
+
+- The `ChildComponent` receives `props` from its parent component.
+- It uses these props to display a greeting and a message.
+
+ParentComponent.jsx
+
+``` jsx
+import React from 'react';
+import ChildComponent from './ChildComponent';
+
+// The ParentComponent includes ChildComponent in its render method
+const ParentComponent = () => {
+  return (
+    <div>
+      {/* ParentComponent passes props to ChildComponent */}
+      <ChildComponent greeting="Hello, World!" message="This is a message passed as a prop." />
+    </div>
+  );
+};
+
+export default ParentComponent;
+
+
+```
+
+- The `ParentComponent` imports `ChildComponent`.
+- It passes the props `greeting` and `message` to `ChildComponent` when it renders it
+
+App.jsx
+
+```jsx
+
+import React from 'react'; 
+import ParentComponent from './ParentComponent'; // The App component renders the ParentComponent 
+const App = () => { 
+return ( 
+<div> 
+<ParentComponent /> 
+</div> ); 
+}; 
+export default App;
+
+
+```
+
+- The `App` component is the root component.
+- It renders the `ParentComponent`, which in turn renders the `ChildComponent`.
+
+When you run this React application, the `ChildComponent` will display the greeting "Hello, World!" and the message "This is a message passed as a prop." This demonstrates how props are passed from a parent component (`ParentComponent`) to a child component (`ChildComponent`).
+
+
+App -> Parent -> Child
+
+
+### How Data Flows
+
+1. **App Component**:
+    
+    - The `App` component renders the `ParentComponent`.
+2. **ParentComponent**:
+    
+    - The `ParentComponent` renders the `ChildComponent` and passes props (`greeting` and `message`) to it.
+3. **ChildComponent**:
+    
+    - The `ChildComponent` receives these props and uses them to display content.
+
+
+In this flow, data always flows from parent to child through props. The child component doesn't send data back to the parent in this basic example. If you need to pass data from the child to the parent, you would typically do this by passing a function (callback) from the parent to the child, which the child can then call to send data back to the parent.
+
 ## Hooks
 
 
@@ -232,6 +318,9 @@ return (
 ## Conditional Rendering
 
 You gotto use ternary operator, if statements don't work.  You cannot `return` an `if` statement! You can only return an **expression** - something that resolves to a value. Moreover, we can't use `if` statements inside JSX.
+
+
+Syntax: `condition ? <expression if true> : <expression if false>`
 
 ```jsx
 function Hello(props) { 
